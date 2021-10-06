@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Movies from "./components/Movies";
 
 const URL = "https://api.themoviedb.org/3";
 const API_KEY = "7926738b2bd8072f8d83bf09a39a5e39";
@@ -22,17 +23,57 @@ function App() {
   const [upcoming, setUpcoming] = useState([])
 
   useEffect(() => {
-    axios.get(`${URL}${endpoints}`, {
+    axios.get(`${URL}${endpoints.originals}`, {
       params: {
         api_key: API_KEY
       }
     })
     .then((res) => setOriginals(res.data.results))
+
+    axios.get(`${URL}${endpoints.trending}`, {
+      params: {
+        api_key: API_KEY
+      }
+    })
+    .then((res) => setTrending(res.data.results))
+
+    axios.get(`${URL}${endpoints.now_playing}`, {
+      params: {
+        api_key: API_KEY
+      }
+    })
+    .then((res) => setNowPlaying(res.data.results))
+
+    axios.get(`${URL}${endpoints.popular}`, {
+      params: {
+        api_key: API_KEY
+      }
+    })
+    .then((res) => setPopular(res.data.results))
+
+    axios.get(`${URL}${endpoints.top_rated}`, {
+      params: {
+        api_key: API_KEY
+      }
+    })
+    .then((res) => setTopRated(res.data.results))
+
+    axios.get(`${URL}${endpoints.upcoming}`, {
+      params: {
+        api_key: API_KEY
+      }
+    })
+    .then((res) => setUpcoming(res.data.results))
   }, [])
 
   return (
     <div className="App">
-      <h1>Hello world</h1>
+      <Movies title='Netflix Originals' movies={originals}></Movies>
+      <Movies title='Trending' movies={trending}></Movies>
+      <Movies title='Now Playing' movies={nowPlaying}></Movies>
+      <Movies title='Popular' movies={popular}></Movies>
+      <Movies title='Top Rated' movies={topRated}></Movies>
+      <Movies title='Upcoming' movies={upcoming}></Movies>
     </div>
   );
 }
