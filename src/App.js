@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Movies from "./components/Movies";
+import Movies from "./components/Movies"
+import Hero from './components/Hero'
+import Header from './components/Header'
 
 const URL = "https://api.themoviedb.org/3";
 const API_KEY = "7926738b2bd8072f8d83bf09a39a5e39";
@@ -68,12 +70,14 @@ function App() {
 
   return (
     <div className="App">
-      <Movies title='Netflix Originals' movies={originals}></Movies>
-      <Movies title='Trending' movies={trending}></Movies>
-      <Movies title='Now Playing' movies={nowPlaying}></Movies>
-      <Movies title='Popular' movies={popular}></Movies>
-      <Movies title='Top Rated' movies={topRated}></Movies>
-      <Movies title='Upcoming' movies={upcoming}></Movies>
+      <Header />
+      <Hero movie={originals[Math.floor(Math.random() * originals.length)]} />
+      <Movies title='Netflix Originals' movies={originals} />
+      <Movies title='Trending' movies={trending} />
+      <Movies title='Now Playing' movies={nowPlaying} />
+      <Movies title='Popular' movies={popular} />
+      <Movies title='Top Rated' movies={topRated} />
+      <Movies title='Upcoming' movies={upcoming} />
     </div>
   );
 }
